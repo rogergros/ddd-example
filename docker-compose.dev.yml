@@ -1,0 +1,44 @@
+version: "3.4"
+
+services:
+
+    mysql:
+        image: mysql:8.0
+        container_name: ddd_example_mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 3306:3306
+        networks:
+            - mysql
+        volumes:
+            - ddd-example-mysql-volume:/var/lib/mysql
+
+    php:
+        image: ddd_example_php:latest
+        container_name: ddd_example_php
+        depends_on:
+            - mysql
+        volumes:
+            - ./:/var/www:delegated
+        networks:
+            - php
+            - mysql
+
+    nginx:
+        image: ddd_example_nginx:latest
+        container_name: ddd_example_nginx
+        depends_on:
+            - php
+        volumes:
+            - ./public:/var/www/public:delegated
+        ports:
+            - 80:80
+        networks:
+            - php
+volumes:
+    ddd-example-mysql-volume:
+
+networks:
+    php:
+    mysql:

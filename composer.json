@@ -1,0 +1,21 @@
+{
+    "name": "rogergros/ddd-example",
+    "description": "DDD Example project",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DDDExample\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roger Gros",
+            "homepage": "https://gros.cat"
+        }
+    ],
+    "require": {},
+    "config": {
+        "bin-dir": "bin"
+    }
+}
