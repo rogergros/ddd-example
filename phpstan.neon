@@ -1,0 +1,17 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+parameters:
+    level: max
+    paths:
+        - src
+        - tests
+    bootstrapFiles:
+        - %currentWorkingDirectory%/vendor/autoload.php
+    tmpDir: ./var
+    reportUnmatchedIgnoredErrors: false
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: false
+    ignoreErrors: []
+
+services: []
