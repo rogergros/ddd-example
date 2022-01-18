@@ -1,4 +1,4 @@
-name: CI
+name: "CI: Static Analysis and Tests"
 
 on:
     pull_request:

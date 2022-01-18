@@ -1,5 +1,8 @@
 # DDD Example Project
 
+![Static analysis and tests](https://github.com/rogergros/ddd-example/actions/workflows/ci.yml/badge.svg)
+
+
 This project is an example of DDD architecture using PHP.
 This is far to be perfect, but it's a good approach to see some DDD best practices.
 
