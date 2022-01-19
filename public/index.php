@@ -1,6 +1,6 @@
 <?php
 
-use DDDExample\Kernel;
+use DDDExample\App\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
