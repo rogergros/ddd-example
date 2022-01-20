@@ -1,0 +1,14 @@
+framework:
+    messenger:
+        default_bus: command.bus
+        buses:
+            command.bus:
+                # Default middlewares: https://symfony.com/doc/current/messenger.html#middleware
+                # Disabling them as we won't use Symfony for async messages or message retry,
+                #  so we don't need: <failed_message_processing_middleware> && <send_message> middlewares
+                default_middleware: false
+                middleware:
+                    -   id: add_bus_name_stamp_middleware # adds a stamp to record which bus this message was dispatched into
+                        arguments: [ 'command.bus' ]
+                    - dispatch_after_current_bus # see: https://symfony.com/doc/current/messenger/dispatch_after_current_bus.html
+                    - handle_message # calls the message handler(s) for the given message
