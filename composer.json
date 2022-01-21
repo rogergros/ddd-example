@@ -25,6 +25,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "lambdish/phunctional": "^2.1",
+        "squizlabs/php_codesniffer": "^3.6",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
@@ -76,10 +77,12 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
+        "style-fix": "phpcbf -p",
         "check": [
             "psalm --threads=8",
             "phpstan analyse --memory-limit=-1 --ansi",
-            "paratest --runner=WrapperRunner --colors"
+            "paratest --runner=WrapperRunner --colors",
+            "phpcs -p --colors --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1"
         ]
     },
     "conflict": {

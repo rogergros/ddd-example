@@ -9,3 +9,5 @@
 !bin/console
 /phpunit.xml
 .phpunit.result.cache
+/.phpcs-cache
+/phpcs.xml

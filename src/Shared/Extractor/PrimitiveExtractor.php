@@ -68,9 +68,9 @@ class PrimitiveExtractor
             $currentPath[] = $pathKey;
             if (!is_array($data) || !array_key_exists($pathKey, $data)) {
                 throw $customException ?? new PrimitiveExtractorKeyNotFoundException(
-                        self::pathFormatter($key),
-                        self::pathFormatter($currentPath)
-                    );
+                    self::pathFormatter($key),
+                    self::pathFormatter($currentPath)
+                );
             }
             /** @var mixed $data */
             $data = $data[$pathKey];

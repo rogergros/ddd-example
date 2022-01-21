@@ -28,10 +28,13 @@ jobs:
               run: "composer install --no-interaction --no-progress"
 
             - name: "PHPStan"
-              run: "bin/phpstan"
+              run: "bin/phpstan analyse --no-progress --memory-limit=-1"
 
             - name: "PSalm"
-              run: "bin/psalm"
+              run: "bin/psalm --threads=8"
+
+            - name: "Code Sniffer"
+              run: "bin/phpcs -p"
 
     tests:
         name: "Tests"
@@ -53,5 +56,5 @@ jobs:
             - name: "Install dependencies"
               run: "composer install --no-interaction --no-progress"
 
-            - name: "PHPStan"
-              run: "bin/paratest"
+            - name: "Tests"
+              run: "bin/paratest --runner=WrapperRunner --colors"
