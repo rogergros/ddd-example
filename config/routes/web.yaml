@@ -1,0 +1,4 @@
+web_controllers:
+    resource: '../../app/Web/Controller/'
+    type: annotation
+    name_prefix: 'web.'

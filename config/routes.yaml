@@ -1,7 +1,3 @@
-controllers:
-    resource: ../app/Controller/
-    type: annotation
-
 kernel:
     resource: ../app/Kernel.php
     type: annotation

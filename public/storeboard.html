@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <style type="text/css">
+            .Container {
+                display: flex;
+                align-items: center;
+            }
+
+            table.Scorecard {
+                margin: 0 auto;
+                width:80%;
+                font-size:12px;
+                border:1px solid;
+                text-align: center;
+                table-layout: fixed;
+                margin-bottom: 40px;
+            }
+
+            table.Scorecard th, tr, td {
+                padding: 0;
+                vertical-align: middle;
+                font-weight: bold;
+            }
+
+            table.Scorecard th {
+                border-bottom:1px solid;
+                background-color:#D3D3D3;
+                height:30px;
+            }
+
+            table.Scorecard th:not(:last-child) {
+                border-right:1px solid;
+            }
+
+            table.Scorecard td {
+                height:30px;
+                background: #F0F8FF;
+            }
+
+            table.Scorecard tr td:not(:last-child) {
+                border-right:1px solid;
+            }
+
+            table.Scorecard tr:nth-child(2) td:nth-child(even) {
+                border-bottom:1px solid;
+            }
+
+            table.Scorecard tr:nth-child(2) td:last-child {
+                border-bottom:1px solid;
+            }
+
+            table.Scorecard #r21 {
+                border-bottom: 1px solid;
+            }
+
+            table.Scorecard #total-score {
+                background-color: #E6E6FA;
+                border-bottom: none;
+            }
+        </style>
+    </head>
+    <body>
+        <table id='table' class='Scorecard' cellPadding='1' cellSpacing='0'>
+            <tbody>
+                <tr>
+                    <th id='c1' colSpan='6'>Frame 1</th>
+                    <th id='c2' colSpan='6'>Frame 2</th>
+                    <th id='c3' colSpan='6'>Frame 3</th>
+                    <th id='c4' colSpan='6'>Frame 4</th>
+                    <th id='c5' colSpan='6'>Frame 5</th>
+                    <th id='c6' colSpan='6'>Frame 6</th>
+                    <th id='c7' colSpan='6'>Frame 7</th>
+                    <th id='c8' colSpan='6'>Frame 8</th>
+                    <th id='c9' colSpan='6'>Frame 9</th>
+                    <th id='c10' colSpan='6'>Frame 10</th>
+                    <th id='c11' colSpan='6'>Total Score</th>
+                </tr>
+                <tr>
+                    <td id='r1' colSpan='3'>0</td><td id='r2' colSpan='3'>0</td>
+                    <td id='r3' colSpan='3'>0</td><td id='r4' colSpan='3'>0</td>
+                    <td id='r5' colSpan='3'>0</td><td id='r6' colSpan='3'>0</td>
+                    <td id='r7' colSpan='3'>0</td><td id='r8' colSpan='3'>0</td>
+                    <td id='r9' colSpan='3'>0</td><td id='r10' colSpan='3'>0</td>
+                    <td id='r11' colSpan='3'>0</td><td id='r12' colSpan='3'>0</td>
+                    <td id='r13' colSpan='3'>0</td><td id='r14' colSpan='3'>0</td>
+                    <td id='r15' colSpan='3'>0</td><td id='r16' colSpan='3'>0</td>
+                    <td id='r17' colSpan='3'>0</td><td id='r18' colSpan='3'>0</td>
+                    <td id='r19' colSpan='2'>0</td><td id='r20' colSpan='2'>0</td><td id='r21' colSpan='2'>0</td>
+                    <td id='total-score' class='Total' colSpan='6'>0</td>
+                </tr>
+                <tr>
+                    <td id='cumulative-score-f1' colSpan='6'>0</td>
+                    <td id='cumulative-score-f2' colSpan='6'>0</td>
+                    <td id='cumulative-score-f3' colSpan='6'>0</td>
+                    <td id='cumulative-score-f4' colSpan='6'>0</td>
+                    <td id='cumulative-score-f5' colSpan='6'>0</td>
+                    <td id='cumulative-score-f6' colSpan='6'>0</td>
+                    <td id='cumulative-score-f7' colSpan='6'>0</td>
+                    <td id='cumulative-score-f8' colSpan='6'>0</td>
+                    <td id='cumulative-score-f9' colSpan='6'>0</td>
+                    <td id='cumulative-score-f10' colSpan='6'>0</td>
+                    <td id='total-score' colSpan='6'></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

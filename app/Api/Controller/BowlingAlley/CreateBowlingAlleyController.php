@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DDDExample\App\Controller\BowlingAlley;
+namespace DDDExample\App\Api\Controller\BowlingAlley;
 
-use DDDExample\App\Controller\AppController;
+use DDDExample\App\AppController;
 use DDDExample\Application\BowlingAlley\CreateBowlingAlley;
 use DDDExample\Application\CommandBus;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyId;

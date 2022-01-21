@@ -32,6 +32,7 @@
         "symfony/messenger": "6.0.*",
         "symfony/runtime": "6.0.*",
         "symfony/serializer": "6.0.*",
+        "symfony/twig-bundle": "6.0.*",
         "symfony/uid": "6.0.*",
         "symfony/yaml": "6.0.*"
     },
@@ -74,6 +75,11 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "check": [
+            "psalm --threads=8",
+            "phpstan analyse --memory-limit=-1 --ansi",
+            "paratest --runner=WrapperRunner --colors"
         ]
     },
     "conflict": {
