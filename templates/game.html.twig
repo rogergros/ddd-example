@@ -81,6 +81,26 @@
                 Started at 13:45 / 2 Players
             </small>
 
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Next roll</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Player 2</h6>
+                    <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-primary" type="button">1</button>
+                        <button class="btn btn-primary" type="button">2</button>
+                        <button class="btn btn-primary" type="button">3</button>
+                        <button class="btn btn-primary" type="button">4</button>
+                        <button class="btn btn-primary" type="button">5</button>
+                        <button class="btn btn-primary" type="button">6</button>
+                        <button class="btn btn-primary" type="button">7</button>
+                        <button class="btn btn-primary" type="button">8</button>
+                        <button class="btn btn-primary" type="button">9</button>
+                        <button class="btn btn-primary" type="button">10</button>
+                    </div>
+                </div>
+            </div>
+
+
             <h2 class="mb-3 mt-4">Scoreboard</h2>
 
             <ul class="list-unstyled">
@@ -179,13 +199,6 @@
             </ul>
 
         </main>
-        <footer class="pt-5 my-5 text-muted border-top">
-            <ul class="list-unstyled">
-                <li>Created by Roger Gros</li>
-                <li><a target="_blank" href="https://iconos8.es/icon/Y3ieDwRhlOhf/bowling">Bowling</a> icon from <a target="_blank" href="https://iconos8.es">Icons8</a></li>
-            </ul>
-
-
-        </footer>
+        {% include 'component/footer.html.twig' %}
     </div>
 {% endblock %}

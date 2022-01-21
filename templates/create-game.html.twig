@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+            <a href="{{ url("web.home") }}" class="d-flex align-items-center text-dark text-decoration-none">
+                <img class="me-2" src="/img/bowling.png" height="30">
+                <span class="fs-4">Bowling management</span>
+            </a>
+        </header>
+
+        <main>
+            <h1>Bowling Alley 1 - Lane 2</h1>
+            <h2>Create a new game</h2>
+
+            <form>
+                <div class="mb-3">
+                    <label for="players" class="form-label">Number of players</label>
+                    <input type="number" min="1" max="10" class="form-control" id="players" value="1">
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+
+        </main>
+        {% include 'component/footer.html.twig' %}
+    </div>
+{% endblock %}
