@@ -16,3 +16,7 @@ This project has a Makefile that can be used to use it. Some commands are:
 |`make start-dev`|Starts/runs the project for development|Starts all the containers for the application with the folder as a volume|
 |`make stop`|Stops the project|Stops all the project containers|
 |`php sh`|Opens an sh on the PHP Container|Executes bash on the PHP container to interact with it|
+
+## Possible improvements
+
+* Some domain logic could be moved from primitives to value objects (simplified for faster development)

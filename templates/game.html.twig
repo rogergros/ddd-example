@@ -36,7 +36,6 @@
 
         table.Scorecard td {
             height:30px;
-            background: #F0F8FF;
         }
 
         table.Scorecard tr td:not(:last-child) {
@@ -53,11 +52,6 @@
 
         table.Scorecard #r21 {
             border-bottom: 1px solid;
-        }
-
-        table.Scorecard #total-score {
-            background-color: #E6E6FA;
-            border-bottom: none;
         }
     </style>
 {% endblock %}
@@ -86,6 +80,7 @@
                     <h5 class="card-title">Next roll</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Player 2</h6>
                     <div class="d-grid gap-2 d-md-block">
+                        <button class="btn btn-primary" type="button">0</button>
                         <button class="btn btn-primary" type="button">1</button>
                         <button class="btn btn-primary" type="button">2</button>
                         <button class="btn btn-primary" type="button">3</button>
@@ -119,7 +114,6 @@
                             <th id='c8' colSpan='6'>Frame 8</th>
                             <th id='c9' colSpan='6'>Frame 9</th>
                             <th id='c10' colSpan='6'>Frame 10</th>
-                            <th id='c11' colSpan='6'>Total Score</th>
                         </tr>
                         <tr>
                             <td id='r1' colSpan='3'>0</td><td id='r2' colSpan='3'>0</td>
@@ -132,7 +126,6 @@
                             <td id='r15' colSpan='3'>0</td><td id='r16' colSpan='3'>0</td>
                             <td id='r17' colSpan='3'>0</td><td id='r18' colSpan='3'>0</td>
                             <td id='r19' colSpan='2'>0</td><td id='r20' colSpan='2'>0</td><td id='r21' colSpan='2'>0</td>
-                            <td id='total-score' class='Total' colSpan='6'>0</td>
                         </tr>
                         <tr>
                             <td id='cumulative-score-f1' colSpan='6'>0</td>
@@ -145,7 +138,6 @@
                             <td id='cumulative-score-f8' colSpan='6'>0</td>
                             <td id='cumulative-score-f9' colSpan='6'>0</td>
                             <td id='cumulative-score-f10' colSpan='6'>0</td>
-                            <td id='total-score' colSpan='6'></td>
                         </tr>
                         </tbody>
                     </table>
@@ -165,7 +157,6 @@
                             <th id='c8' colSpan='6'>Frame 8</th>
                             <th id='c9' colSpan='6'>Frame 9</th>
                             <th id='c10' colSpan='6'>Frame 10</th>
-                            <th id='c11' colSpan='6'>Total Score</th>
                         </tr>
                         <tr>
                             <td id='r1' colSpan='3'>0</td><td id='r2' colSpan='3'>0</td>
@@ -178,7 +169,6 @@
                             <td id='r15' colSpan='3'>0</td><td id='r16' colSpan='3'>0</td>
                             <td id='r17' colSpan='3'>0</td><td id='r18' colSpan='3'>0</td>
                             <td id='r19' colSpan='2'>0</td><td id='r20' colSpan='2'>0</td><td id='r21' colSpan='2'>0</td>
-                            <td id='total-score' class='Total' colSpan='6'>0</td>
                         </tr>
                         <tr>
                             <td id='cumulative-score-f1' colSpan='6'>0</td>
@@ -191,7 +181,6 @@
                             <td id='cumulative-score-f8' colSpan='6'>0</td>
                             <td id='cumulative-score-f9' colSpan='6'>0</td>
                             <td id='cumulative-score-f10' colSpan='6'>0</td>
-                            <td id='total-score' colSpan='6'></td>
                         </tr>
                         </tbody>
                     </table>

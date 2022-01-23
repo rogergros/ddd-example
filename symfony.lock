@@ -26,6 +26,9 @@
     "doctrine/instantiator": {
         "version": "1.4.0"
     },
+    "fakerphp/faker": {
+        "version": "v1.17.0"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.2.1"
     },
