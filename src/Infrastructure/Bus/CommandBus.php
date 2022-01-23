@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DDDExample\Infrastructure\Bus;
 
-use DDDExample\Application\Command;
-use DDDExample\Application\CommandBus as CommandBusInterface;
+use DDDExample\Application\Command\Command;
+use DDDExample\Application\Command\CommandBus as CommandBusInterface;
 use DDDExample\Infrastructure\Bus\Exception\CommandBusCommandNotRegisteredException;
 use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;

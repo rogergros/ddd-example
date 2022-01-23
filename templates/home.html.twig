@@ -16,40 +16,22 @@
             <p class="fs-5 col-md-8">Quickly and easily manage your Bowling Alleys, create new games and keep track of their scores.</p>
 
             <div class="mb-3 list-group">
-                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            {% for bowlingAlley in bowlingAlleys %}
+                <a href="{{ url('web.bowling-alley') }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                     <img src="/img/alley.png" height="32">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div>
-                            <h6 class="mb-0">Bowling Alley 1</h6>
-                            <p class="mb-0 opacity-75">5 lanes</p>
+                            <h6 class="mb-0">{{ bowlingAlley.name }}</h6>
+                            <p class="mb-0 opacity-75">{{ bowlingAlley.lanes }} lanes</p>
                         </div>
                         <small class="opacity-50 text-nowrap">3 active games</small>
                     </div>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src="/img/alley.png" height="32">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
-                            <h6 class="mb-0">Bowling Alley 2</h6>
-                            <p class="mb-0 opacity-75">2 lanes</p>
-                        </div>
-                        <small class="opacity-50 text-nowrap">1 active games</small>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src="/img/alley.png" height="32">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
-                            <h6 class="mb-0">Bowling Alley 3</h6>
-                            <p class="mb-0 opacity-75">3 lanes</p>
-                        </div>
-                        <small class="opacity-50 text-nowrap">no active games</small>
-                    </div>
-                </a>
+            {% endfor %}
             </div>
 
             <div class="mb-5">
-                <a href="/docs/5.1/examples/" class="btn btn-primary btn-m px-4">
+                <a href="{{ url('web.create-bowling-alley') }}" class="btn btn-primary btn-m px-4">
                     <i class="bi bi-plus-circle"></i>
                     Bowling alley
                 </a>

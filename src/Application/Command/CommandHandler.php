@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DDDExample\Application;
+namespace DDDExample\Application\Command;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 

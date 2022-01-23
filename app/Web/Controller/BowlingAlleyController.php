@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace DDDExample\App\Web\Controller;
 
 use DDDExample\App\Web\WebController;
-use DDDExample\Application\CommandBus;
+use DDDExample\Application\Command\CommandBus;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

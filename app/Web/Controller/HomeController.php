@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace DDDExample\App\Web\Controller;
 
 use DDDExample\App\Web\WebController;
-use DDDExample\Application\CommandBus;
-use DDDExample\Domain\Game\Game;
-use DDDExample\Tests\Mother\Domain\BowlingAlley\BowlingAlleyIdMother;
-use DDDExample\Tests\Mother\Domain\Game\GameIdMother;
+use DDDExample\Application\Query\BowlingAlley\AllBowlingAlleys;
+use DDDExample\Application\Query\QueryBus;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,8 +18,12 @@ class HomeController extends WebController
         requirements: [],
         methods: ['GET']
     )]
-    public function getAction(CommandBus $commandBus): Response
+    public function getAction(QueryBus $queryBus): Response
     {
-        return $this->renderResponse('home.html.twig');
+        $bowlingAlleys = $queryBus->ask(new AllBowlingAlleys());
+
+        return $this->renderResponse('home.html.twig', [
+            'bowlingAlleys' => $bowlingAlleys,
+        ]);
     }
 }

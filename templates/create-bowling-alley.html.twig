@@ -14,14 +14,14 @@
         <main>
             <h1>Create a new Bowling alley</h1>
 
-            <form>
+            <form action="{{ url('web.create-bowling-alley-post') }}" method="post">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" min="1" max="200" class="form-control" id="name">
+                    <input type="text" min="1" max="200" class="form-control" id="name" name="name">
                 </div>
                 <div class="mb-3">
                     <label for="lanes" class="form-label">Number of lanes</label>
-                    <input type="number" min="1" max="10" class="form-control" id="lanes" value="1">
+                    <input type="number" min="1" max="10" class="form-control" id="lanes" value="1" name="lanes">
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>

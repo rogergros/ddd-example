@@ -18,8 +18,13 @@ abstract class Ulid extends StringValueObject
         parent::__construct($value);
     }
 
-    public static function isValid(string $value): bool
+    protected static function isValid(string $value): bool
     {
         return SymfonyUlid::isValid($value);
+    }
+
+    protected static function random(): string
+    {
+        return SymfonyUlid::generate();
     }
 }

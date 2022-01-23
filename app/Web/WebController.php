@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace DDDExample\App\Web;
 
 use DDDExample\App\AppController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 abstract class WebController implements AppController
 {
-    public function __construct(private Environment $twig)
+    public function __construct(private Environment $twig, private UrlGeneratorInterface $urlGenerator)
     {
     }
 
@@ -24,5 +26,13 @@ abstract class WebController implements AppController
         $content = $this->render($view, $parameters);
 
         return new Response($content);
+    }
+
+    protected function redirect(string $route, array $parameters = [], int $status = 302): RedirectResponse
+    {
+        return new RedirectResponse(
+            $this->urlGenerator->generate($route, $parameters),
+            $status
+        );
     }
 }

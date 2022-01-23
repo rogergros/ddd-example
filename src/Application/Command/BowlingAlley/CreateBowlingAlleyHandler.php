@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DDDExample\Application\BowlingAlley;
+namespace DDDExample\Application\Command\BowlingAlley;
 
-use DDDExample\Application\CommandHandler;
+use DDDExample\Application\Command\CommandHandler;
 use DDDExample\Domain\BowlingAlley\BowlingAlley;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyRepository;
 

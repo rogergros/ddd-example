@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace DDDExample\App\Api\Controller\BowlingAlley;
 
 use DDDExample\App\AppController;
-use DDDExample\Application\BowlingAlley\CreateBowlingAlley;
-use DDDExample\Application\CommandBus;
+use DDDExample\Application\Command\BowlingAlley\CreateBowlingAlley;
+use DDDExample\Application\Command\CommandBus;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyId;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyName;
 use DDDExample\Shared\Extractor\PrimitiveExtractor;
