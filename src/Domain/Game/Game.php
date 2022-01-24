@@ -6,10 +6,11 @@ namespace DDDExample\Domain\Game;
 
 use DateTimeImmutable;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyId;
+use DDDExample\Domain\Game\Exception\GameAlreadyFinishedException;
 use DDDExample\Domain\Game\Exception\UnexpectedNumberOfLanes;
 use DDDExample\Domain\Game\Exception\UnexpectedNumberOfPlayers;
-use DDDExample\Shared\Exception\RuntimeException;
 
+use function Lambdish\Phunctional\filter;
 use function Lambdish\Phunctional\map;
 use function Lambdish\Phunctional\sort as fsort;
 
@@ -28,7 +29,7 @@ class Game
             throw new UnexpectedNumberOfPlayers($numberOfPlayers, self::MAX_PLAYERS);
         }
 
-        /** @var PlayerGame[] $games */
+        /** @var list<PlayerGame> $games */
         $games = map(fn(int $player) => PlayerGame::create($gameId, $player), range(1, $numberOfPlayers));
 
         return new self(
@@ -41,7 +42,7 @@ class Game
     }
 
     /**
-     * @param PlayerGame[] $playerGames
+     * @param list<PlayerGame> $playerGames
      */
     public function __construct(
         private GameId $gameId,
@@ -97,35 +98,11 @@ class Game
         return ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
     }
 
-    public function nextPlayer(): int
+    public function nextPlayer(): ?int
     {
-        return $this->nextPlayerGame()->player();
-    }
+        $nextPlayerGame = $this->nextPlayerGame();
 
-    /**
-     * @return array<int,array<int,int|null>>
-     */
-    public function scoreboards(): array
-    {
-        $scores = [];
-        foreach ($this->sortedPlayerGames() as $playerGame) {
-            $scores[$playerGame->player()] = $playerGame->scoreboard();
-        }
-
-        return $scores;
-    }
-
-    /**
-     * @return array<int,list<int>>
-     */
-    public function rolls()
-    {
-        $rolls = [];
-        foreach ($this->sortedPlayerGames() as $playerGame) {
-            $rolls[$playerGame->player()] = $playerGame->rolls();
-        }
-
-        return $rolls;
+        return $nextPlayerGame instanceof PlayerGame ? $nextPlayerGame->player() : null;
     }
 
     public function frame(): int
@@ -142,7 +119,12 @@ class Game
 
     public function roll(int $knockedPins): void
     {
-        $this->nextPlayerGame()->roll($knockedPins);
+        $nextPlayerGame = $this->nextPlayerGame();
+        if (!$nextPlayerGame instanceof PlayerGame) {
+            throw new GameAlreadyFinishedException();
+        }
+
+        $nextPlayerGame->roll($knockedPins);
 
         $lastPlayerGame = $this->playerGame($this->numberOfPlayers());
         if ($lastPlayerGame->isFinished()) {
@@ -151,9 +133,22 @@ class Game
     }
 
     /**
+     * @return array<int,PlayerGameState>
+     */
+    public function playerGameStates(): array
+    {
+        $playerGameStates = [];
+        foreach ($this->playerGames as $playerGame) {
+            $playerGameStates[$playerGame->player()] = $playerGame->state();
+        }
+
+        return $playerGameStates;
+    }
+
+    /**
      * @return PlayerGame[]
      */
-    public function sortedPlayerGames(): array
+    private function sortedPlayerGames(): array
     {
         /** @var PlayerGame[] $sortedPlayerGames */
         $sortedPlayerGames = fsort(
@@ -164,10 +159,13 @@ class Game
         return $sortedPlayerGames;
     }
 
-    private function nextPlayerGame(): PlayerGame
+    private function nextPlayerGame(): ?PlayerGame
     {
+        /** @var list<PlayerGame> $unfinishedGames */
+        $unfinishedGames = filter(fn(PlayerGame $playerGame): bool => !$playerGame->isFinished(), $this->playerGames);
+
         $nextGame = null;
-        foreach ($this->playerGames as $playerGame) {
+        foreach ($unfinishedGames as $playerGame) {
             if (null === $nextGame) {
                 $nextGame = $playerGame;
             } elseif (
@@ -176,10 +174,6 @@ class Game
             ) {
                 $nextGame = $playerGame;
             }
-        }
-
-        if (!$nextGame instanceof PlayerGame) {
-            throw new RuntimeException('No next player game found');
         }
 
         return $nextGame;

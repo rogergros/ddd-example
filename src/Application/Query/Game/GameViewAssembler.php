@@ -7,6 +7,7 @@ namespace DDDExample\Application\Query\Game;
 use DateTimeImmutable;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyRepository;
 use DDDExample\Domain\Game\Game;
+use DDDExample\Domain\Game\PlayerGameState;
 
 use function Lambdish\Phunctional\map;
 
@@ -26,13 +27,12 @@ final class GameViewAssembler
             $bowlingAlley->name()->value(),
             $game->lane(),
             $game->numberOfPlayers(),
-            $game->rolls(),
-            $game->scoreboards(),
             $game->frame(),
             $game->nextPlayer(),
             $game->finishedAt() instanceof DateTimeImmutable,
             $game->minutesElapsed(),
-            $game->startedAt()->getTimestamp()
+            $game->startedAt()->getTimestamp(),
+            $this->assemblePlayerGameStates($game),
         );
     }
 
@@ -49,5 +49,39 @@ final class GameViewAssembler
         );
 
         return $assembledViews;
+    }
+
+    /**
+     * @return array<int,PlayerGameStateView>
+     */
+    private function assemblePlayerGameStates(Game $game): array
+    {
+        $assembled = [];
+        $playerGameStates = $game->playerGameStates();
+        foreach ($playerGameStates as $player => $playerGameState) {
+            $assembled[$player] = $this->assemblePlayerGameState($playerGameState);
+        }
+
+        return $assembled;
+    }
+
+    private function assemblePlayerGameState(PlayerGameState $playerGameState): PlayerGameStateView
+    {
+        $assembledFrames = [];
+        foreach ($playerGameState->frames() as $frame => $playerGameFrameState) {
+            $assembledFrames[$frame] = new GameFrameStateView(
+                $playerGameFrameState->firstRoll(),
+                $playerGameFrameState->secondRoll(),
+                $playerGameFrameState->thirdRoll(),
+                $playerGameFrameState->score(),
+            );
+        }
+
+        return new PlayerGameStateView(
+            $assembledFrames,
+            $playerGameState->currentFrame(),
+            $playerGameState->isFinished(),
+            $playerGameState->totalScore()
+        );
     }
 }

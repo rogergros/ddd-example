@@ -4,74 +4,34 @@ declare(strict_types=1);
 
 namespace DDDExample\Domain\Game;
 
-use function Lambdish\Phunctional\map;
+use DDDExample\Domain\Game\Exception\UnexpectedNumberOfKnockedPins;
 
 class PlayerGame
 {
-    private int $finishedFrames = 0;
-    private bool $isFinished = false;
-    /** @var list<int> */
-    private array $rolls = [];
-
     public static function create(
         GameId $gameId,
         int $player,
     ): PlayerGame {
-        return new self($gameId, $player);
+        return new self($gameId, $player, [], PlayerGameState::create());
     }
 
     /**
-     * @param int[] $rolls
+     * @param list<int> $rolls
      */
     public function __construct(
         private GameId $gameId,
         private int $player,
-        array $rolls = []
+        private array $rolls,
+        private PlayerGameState $state
     ) {
-        if (!empty($rolls)) {
-            map(fn(int $roll) => $this->roll($roll), $rolls);
-        }
+        $this->updateGameStats();
     }
 
     public function roll(int $knockedPins): void
     {
         $this->rolls[] = $knockedPins;
 
-        // TODO: Update scoreboard on roll instead of recalculate it every time
-        $scoreboard = $this->scoreboard();
-        $this->finishedFrames = count(array_filter($scoreboard));
-        $this->isFinished = 10 === $this->finishedFrames;
-    }
-
-    /**
-     * @return array<int,?int>
-     */
-    public function scoreboard(): array
-    {
-        $scoreBoard = [null, null, null, null, null, null, null, null, null, null];
-        $totalScore = 0;
-        $roll = 0;
-
-        for ($frame = 0; $frame < 10; ++$frame) {
-            if ($this->frameIsStrike($roll)) {
-                $frameScore = $this->getKnockedPins($roll, 3);
-                $totalScore += $frameScore ?? 0;
-                $scoreBoard[$frame] = $frameScore ? $totalScore : null;
-                $roll += 1;
-            } elseif ($this->frameIsSpare($roll)) {
-                $frameScore = $this->getKnockedPins($roll, 3);
-                $totalScore += $frameScore ?? 0;
-                $scoreBoard[$frame] = $frameScore ? $totalScore : null;
-                $roll += 2;
-            } else {
-                $frameScore = $this->getKnockedPins($roll, 2);
-                $totalScore += $frameScore ?? 0;
-                $scoreBoard[$frame] = $frameScore ? $totalScore : null;
-                $roll += 2;
-            }
-        }
-
-        return $scoreBoard;
+        $this->updateGameStats();
     }
 
     /**
@@ -84,12 +44,12 @@ class PlayerGame
 
     public function frame(): int
     {
-        return min(10, $this->finishedFrames + 1);
+        return $this->state->currentFrame();
     }
 
     public function isFinished(): bool
     {
-        return $this->isFinished;
+        return $this->state->isFinished();
     }
 
     public function gameId(): GameId
@@ -100,6 +60,81 @@ class PlayerGame
     public function player(): int
     {
         return $this->player;
+    }
+
+    public function totalScore(): ?int
+    {
+        return $this->state->totalScore();
+    }
+
+    public function state(): PlayerGameState
+    {
+        return $this->state;
+    }
+
+    private function updateGameStats(): void
+    {
+        $this->state = PlayerGameState::create();
+
+        $totalScore = 0;
+        $roll = 0;
+        for ($frame = 1; $frame <= 10; ++$frame) {
+            if ($this->frameIsStrike($roll)) {
+                $frameScore = $this->getKnockedPins($roll, 3);
+                $totalScore += $frameScore ?? 0;
+
+                $this->state->updateFrameFirstRoll($frame, null);
+                $this->state->updateFrameSecondRoll($frame, 10);
+                $this->state->updateFrameScore($frame, $frameScore ? $totalScore : null);
+                $this->state->updateTotalScore($totalScore);
+
+                if (null !== $frameScore) {
+                    $this->state->updateFrame(min(10, $frame + 1));
+                }
+
+                $roll += 1;
+            } elseif ($this->frameIsSpare($roll)) {
+                $frameScore = $this->getKnockedPins($roll, 3);
+                $totalScore += $frameScore ?? 0;
+
+                $this->state->updateFrameFirstRoll($frame, $this->rolls[$roll] ?? null);
+                $this->state->updateFrameSecondRoll($frame, $this->rolls[$roll + 1] ?? null);
+                $this->state->updateFrameScore($frame, $frameScore ? $totalScore : null);
+                $this->state->updateTotalScore($totalScore);
+
+                if (null !== $frameScore) {
+                    $this->state->updateFrame(min(10, $frame + 1));
+                }
+
+                $roll += 2;
+            } else {
+                $frameScore = $this->getKnockedPins($roll, 2);
+                if ($frameScore !== null && $frameScore > 10) {
+                    throw new UnexpectedNumberOfKnockedPins($frameScore);
+                }
+
+                $totalScore += $frameScore ?? 0;
+
+                $this->state->updateFrameFirstRoll($frame, $this->rolls[$roll] ?? null);
+                $this->state->updateFrameSecondRoll($frame, $this->rolls[$roll + 1] ?? null);
+                $this->state->updateFrameScore($frame, $frameScore ? $totalScore : null);
+                $this->state->updateTotalScore($totalScore);
+
+                if (10 === $frame) {
+                    $this->state->updateTenthFrameThirdRoll($this->rolls[$roll + 2] ?? null);
+                }
+
+                if (null !== $frameScore) {
+                    $this->state->updateFrame(min(10, $frame + 1));
+                }
+
+                $roll += 2;
+            }
+        }
+
+        if (null !== $this->state->frameScore(10)) {
+            $this->state->finish();
+        }
     }
 
     private function frameIsStrike(int $frameRollIndex): bool

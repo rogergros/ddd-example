@@ -23,3 +23,4 @@ This project has a Makefile that can be used to use it. Some commands are:
 * Use a ORM to store entities into a real DB
 * Use the criteria pattern on repository searches and use a search engine (Elasticsearch?)
 * Project data or query joins to avoid multiple queries to build a view
+* Capture exceptions and convert them into proper HTML code errors

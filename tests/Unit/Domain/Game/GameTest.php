@@ -9,6 +9,8 @@ use DDDExample\Domain\Game\Exception\UnexpectedNumberOfLanes;
 use DDDExample\Domain\Game\Exception\UnexpectedNumberOfPlayers;
 use DDDExample\Domain\Game\Game;
 use DDDExample\Domain\Game\PlayerGame;
+use DDDExample\Domain\Game\PlayerGameFrameState;
+use DDDExample\Domain\Game\PlayerGameState;
 use DDDExample\Tests\AppTestCase;
 use DDDExample\Tests\Mother\Domain\BowlingAlley\BowlingAlleyIdMother;
 use DDDExample\Tests\Mother\Domain\Game\GameIdMother;
@@ -178,7 +180,24 @@ class GameTest extends AppTestCase
         return new PlayerGame(
             GameIdMother::create(),
             $player,
-            array_fill(0, ($frame * 2) - $subOnFrame, 1)
+            array_fill(0, ($frame * 2) - $subOnFrame, 1),
+            new PlayerGameState(
+                [
+                    1 => $frame >= 1 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    2 => $frame >= 2 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    3 => $frame >= 3 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    4 => $frame >= 4 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    5 => $frame >= 5 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    6 => $frame >= 6 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    7 => $frame >= 7 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    8 => $frame >= 8 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    9 => $frame >= 9 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                    10 => $frame >= 10 ? new PlayerGameFrameState(1, 1, 2) : PlayerGameFrameState::create(),
+                ],
+                $frame,
+                false,
+                $frame * 2
+            )
         );
     }
 }

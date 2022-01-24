@@ -57,9 +57,4 @@ abstract class DiskRepository
     {
         return sprintf('%s/bowling-app-%s.db', sys_get_temp_dir(), $this->fileNamespace());
     }
-
-    public function __destruct()
-    {
-        $this->saveDataOnFile();
-    }
 }
