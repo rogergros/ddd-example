@@ -9,7 +9,8 @@ final class BowlingAlleyView
     public function __construct(
         public string $id,
         public string $name,
-        public int $lanes
+        public int $lanes,
+        public int $activeGames
     ) {
     }
 }

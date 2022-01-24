@@ -12,4 +12,9 @@ class GameId extends Ulid
     {
         return new self($value);
     }
+
+    public static function createRandom(): self
+    {
+        return self::create(Ulid::random());
+    }
 }

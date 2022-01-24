@@ -7,7 +7,7 @@ namespace DDDExample\Infrastructure\Persistence\Disk;
 /**
  * @template T
  */
-abstract class FileRepository
+abstract class DiskRepository
 {
     /**
      * @var list<T>
@@ -33,6 +33,12 @@ abstract class FileRepository
     {
         $filePath = $this->filePath();
 
+        if (!file_exists($filePath)) {
+            $this->data = [];
+
+            return;
+        }
+
         $fileContent = file_get_contents($this->filePath());
 
         if (false === $fileContent) {
@@ -42,7 +48,7 @@ abstract class FileRepository
         }
 
         /** @var array<T>|false|null $fileData */
-        $fileData = file_exists($filePath) ? unserialize($fileContent) : null;
+        $fileData = unserialize($fileContent);
 
         $this->data = is_array($fileData) ? array_values($fileData) : [];
     }

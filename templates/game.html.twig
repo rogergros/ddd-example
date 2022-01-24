@@ -66,31 +66,38 @@
         </header>
 
         <main>
-            <h1>Bowling Alley 1 - Lane 2</h1>
+            <h1>{{ game.bowlingAlleyName }} - Lane {{ game.lane }}</h1>
 
             <small class="opacity-50 text-nowrap">
+                {% if game.isFinished %}
+                <small class="opacity-50 text-nowrap">
+                    <i class="bi bi-check-lg"></i>
+                    {{ game.elapsedMinutes }} min / {{ game.players }} Players
+                </small>
+                {% else %}
                 <div class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Ongoing</span>
                 </div>
-                Started at 13:45 / 2 Players
+                Started at {{ game.startedAtTimestamp|date('H:i') }} ({{ game.elapsedMinutes }} min) / {{ game.players }} Players
+                {% endif %}
             </small>
 
             <div class="card mt-4">
                 <div class="card-body">
                     <h5 class="card-title">Next roll</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Player 2</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Player {{ game.nextPlayer }}</h6>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">0</button>
-                        <button class="btn btn-primary" type="button">1</button>
-                        <button class="btn btn-primary" type="button">2</button>
-                        <button class="btn btn-primary" type="button">3</button>
-                        <button class="btn btn-primary" type="button">4</button>
-                        <button class="btn btn-primary" type="button">5</button>
-                        <button class="btn btn-primary" type="button">6</button>
-                        <button class="btn btn-primary" type="button">7</button>
-                        <button class="btn btn-primary" type="button">8</button>
-                        <button class="btn btn-primary" type="button">9</button>
-                        <button class="btn btn-primary" type="button">10</button>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 0 }) }}" class="btn btn-primary" type="button">0</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 1 }) }}" class="btn btn-primary" type="button">1</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 2 }) }}" class="btn btn-primary" type="button">2</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 3 }) }}" class="btn btn-primary" type="button">3</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 4 }) }}" class="btn btn-primary" type="button">4</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 5 }) }}" class="btn btn-primary" type="button">5</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 6 }) }}" class="btn btn-primary" type="button">6</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 7 }) }}" class="btn btn-primary" type="button">7</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 8 }) }}" class="btn btn-primary" type="button">8</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 9 }) }}" class="btn btn-primary" type="button">9</a>
+                        <a href="{{ url('web.game-roll', { 'id' : game.id, 'knockedPins' : 10 }) }}" class="btn btn-primary" type="button">10</a>
                     </div>
                 </div>
             </div>
@@ -99,9 +106,10 @@
             <h2 class="mb-3 mt-4">Scoreboard</h2>
 
             <ul class="list-unstyled">
-                <li class="mb-3">
-                    <h3>Player 1</h3>
-                    <table id='table' class='Scorecard' cellPadding='1' cellSpacing='0'>
+                {% for i in 1..game.players %}
+                    <li class="mb-3">
+                        <h3>Player {{ i }}</h3>
+                        <table id='table' class='Scorecard' cellPadding='1' cellSpacing='0'>
                         <tbody>
                         <tr>
                             <th id='c1' colSpan='6'>Frame 1</th>
@@ -141,52 +149,9 @@
                         </tr>
                         </tbody>
                     </table>
-                </li>
-                <li>
-                    <h3>Player 2</h3>
-                    <table id='table' class='Scorecard' cellPadding='1' cellSpacing='0'>
-                        <tbody>
-                        <tr>
-                            <th id='c1' colSpan='6'>Frame 1</th>
-                            <th id='c2' colSpan='6'>Frame 2</th>
-                            <th id='c3' colSpan='6'>Frame 3</th>
-                            <th id='c4' colSpan='6'>Frame 4</th>
-                            <th id='c5' colSpan='6'>Frame 5</th>
-                            <th id='c6' colSpan='6'>Frame 6</th>
-                            <th id='c7' colSpan='6'>Frame 7</th>
-                            <th id='c8' colSpan='6'>Frame 8</th>
-                            <th id='c9' colSpan='6'>Frame 9</th>
-                            <th id='c10' colSpan='6'>Frame 10</th>
-                        </tr>
-                        <tr>
-                            <td id='r1' colSpan='3'>0</td><td id='r2' colSpan='3'>0</td>
-                            <td id='r3' colSpan='3'>0</td><td id='r4' colSpan='3'>0</td>
-                            <td id='r5' colSpan='3'>0</td><td id='r6' colSpan='3'>0</td>
-                            <td id='r7' colSpan='3'>0</td><td id='r8' colSpan='3'>0</td>
-                            <td id='r9' colSpan='3'>0</td><td id='r10' colSpan='3'>0</td>
-                            <td id='r11' colSpan='3'>0</td><td id='r12' colSpan='3'>0</td>
-                            <td id='r13' colSpan='3'>0</td><td id='r14' colSpan='3'>0</td>
-                            <td id='r15' colSpan='3'>0</td><td id='r16' colSpan='3'>0</td>
-                            <td id='r17' colSpan='3'>0</td><td id='r18' colSpan='3'>0</td>
-                            <td id='r19' colSpan='2'>0</td><td id='r20' colSpan='2'>0</td><td id='r21' colSpan='2'>0</td>
-                        </tr>
-                        <tr>
-                            <td id='cumulative-score-f1' colSpan='6'>0</td>
-                            <td id='cumulative-score-f2' colSpan='6'>0</td>
-                            <td id='cumulative-score-f3' colSpan='6'>0</td>
-                            <td id='cumulative-score-f4' colSpan='6'>0</td>
-                            <td id='cumulative-score-f5' colSpan='6'>0</td>
-                            <td id='cumulative-score-f6' colSpan='6'>0</td>
-                            <td id='cumulative-score-f7' colSpan='6'>0</td>
-                            <td id='cumulative-score-f8' colSpan='6'>0</td>
-                            <td id='cumulative-score-f9' colSpan='6'>0</td>
-                            <td id='cumulative-score-f10' colSpan='6'>0</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </li>
+                    </li>
+                {% endfor %}
             </ul>
-
         </main>
         {% include 'component/footer.html.twig' %}
     </div>

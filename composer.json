@@ -80,7 +80,7 @@
         ],
         "style-fix": "phpcbf -p",
         "check": [
-            "psalm --threads=8",
+            "psalm --no-cache",
             "phpstan analyse --memory-limit=-1 --ansi",
             "paratest --runner=WrapperRunner --colors",
             "phpcs -p --colors --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1"

@@ -7,10 +7,11 @@ namespace DDDExample\App\Web\Controller;
 use DDDExample\App\Web\WebController;
 use DDDExample\Application\Query\BowlingAlley\AllBowlingAlleys;
 use DDDExample\Application\Query\QueryBus;
+use DDDExample\Domain\BowlingAlley\BowlingAlleyId;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends WebController
+final class HomeController extends WebController
 {
     #[Route(
         path: '/',
@@ -22,8 +23,11 @@ class HomeController extends WebController
     {
         $bowlingAlleys = $queryBus->ask(new AllBowlingAlleys());
 
-        return $this->renderResponse('home.html.twig', [
-            'bowlingAlleys' => $bowlingAlleys,
-        ]);
+        return $this->renderResponse(
+            'home.html.twig',
+            [
+                'bowlingAlleys' => $bowlingAlleys,
+            ]
+        );
     }
 }

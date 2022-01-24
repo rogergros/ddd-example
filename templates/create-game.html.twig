@@ -12,13 +12,13 @@
         </header>
 
         <main>
-            <h1>Bowling Alley 1 - Lane 2</h1>
+            <h1>{{ bowlingAlley.name }} - Lane {{ lane }}</h1>
             <h2>Create a new game</h2>
 
-            <form>
+            <form action="{{ url('web.create-game-post', {'bowlingAlleyId': bowlingAlley.id, 'lane': lane}) }}" method="post">
                 <div class="mb-3">
                     <label for="players" class="form-label">Number of players</label>
-                    <input type="number" min="1" max="10" class="form-control" id="players" value="1">
+                    <input type="number" min="1" max="10" class="form-control" id="players" value="1" name="numberOfPlayers">
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>

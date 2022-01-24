@@ -26,3 +26,11 @@ stop:
 
 php-sh:
 	$(PHP_EXEC) /bin/bash
+
+# OTHER DOCKER COMMANDS
+docker-ease:
+	docker system prune --volumes --filter="label!=com.docker.compose.project" --force
+
+docker-prune:
+	docker system prune --force
+	docker image prune --all --force

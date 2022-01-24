@@ -12,4 +12,6 @@ interface BowlingAlleyRepository
     public function all(): array;
 
     public function save(BowlingAlley $bowlingAlley): void;
+
+    public function byId(BowlingAlleyId $bowlingAlleyId): BowlingAlley;
 }

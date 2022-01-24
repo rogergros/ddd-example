@@ -17,14 +17,14 @@
 
             <div class="mb-3 list-group">
             {% for bowlingAlley in bowlingAlleys %}
-                <a href="{{ url('web.bowling-alley') }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                <a href="{{ url('web.bowling-alley', {'id': bowlingAlley.id}) }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                     <img src="/img/alley.png" height="32">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div>
                             <h6 class="mb-0">{{ bowlingAlley.name }}</h6>
                             <p class="mb-0 opacity-75">{{ bowlingAlley.lanes }} lanes</p>
                         </div>
-                        <small class="opacity-50 text-nowrap">3 active games</small>
+                        <small class="opacity-50 text-nowrap">{{ bowlingAlley.activeGames}} active games</small>
                     </div>
                 </a>
             {% endfor %}

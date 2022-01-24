@@ -12,47 +12,45 @@
         </header>
 
         <main>
-            <h1>Bowling Alley 1</h1>
+            <h1>{{ bowlingAlley.name }}</h1>
 
             <div class="mb-3 list-group">
                 <h2>Lanes</h2>
-                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src="/img/pins.png" height="32">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
-                            <h6 class="mb-0">Bowling Alley 1 - Lane 1</h6>
-                            <p class="mb-0 opacity-75">2 players / Frame 2</p>
-                        </div>
-                        <small class="opacity-50 text-nowrap">
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="visually-hidden">Ongoing</span>
+                {% for i in range(1, bowlingAlley.lanes) %}
+                    {% set
+                        url = laneGames[i] is defined
+                            ? url('web.game', {'id':laneGames[i].id})
+                            : url('web.create-game', {'bowlingAlleyId': bowlingAlley.id, 'lane':i})
+                    %}
+                    <a href="{{ url }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                        <img src="/img/pins.png" height="32">
+                        <div class="d-flex gap-2 w-100 justify-content-between">
+                            <div>
+                                <h6 class="mb-0">{{ bowlingAlley.name }} - Lane {{ i }}</h6>
+                                {% if laneGames[i] is defined %}
+                                    <p class="mb-0 opacity-75">{{ laneGames[i].players }} players / Frame {{ laneGames[i].frame }}</p>
+                                {% else %}
+                                    <p class="mb-0 opacity-75">No game</p>
+                                {% endif %}
                             </div>
-                            30 min
-                        </small>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src="/img/pins.png" height="32">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
-                            <h6 class="mb-0">Bowling Alley 1 - Lane 2</h6>
-                            <p class="mb-0 opacity-75">2 players / Frame 2</p>
+                            {% if laneGames[i] is defined %}
+                                {% if laneGames[i].isFinished %}
+                                    <small class="opacity-50 text-nowrap">
+                                        <i class="bi bi-check-lg"></i>
+                                        {{ laneGames[i].elapsedMinutes }} min
+                                    </small>
+                                {% else %}
+                                    <small class="opacity-50 text-nowrap">
+                                        <div class="spinner-border spinner-border-sm" role="status">
+                                            <span class="visually-hidden">Ongoing</span>
+                                        </div>
+                                        {{ laneGames[i].elapsedMinutes }} min
+                                    </small>
+                                {% endif %}
+                            {% endif %}
                         </div>
-                        <small class="opacity-50 text-nowrap">
-                            <i class="bi bi-check-lg"></i>
-                            30 min
-                        </small>
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src="/img/pins.png" height="32">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
-                            <h6 class="mb-0">Bowling Alley 1 - Lane 2</h6>
-                            <p class="mb-0 opacity-75">No game</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                {% endfor %}
             </div>
 
         </main>

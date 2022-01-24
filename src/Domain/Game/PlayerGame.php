@@ -10,7 +10,7 @@ class PlayerGame
 {
     private int $finishedFrames = 0;
     private bool $isFinished = false;
-    /** @var int[] */
+    /** @var list<int> */
     private array $rolls = [];
 
     public static function create(
@@ -72,6 +72,14 @@ class PlayerGame
         }
 
         return $scoreBoard;
+    }
+
+    /**
+     * @return list<int>
+     */
+    public function rolls(): array
+    {
+        return $this->rolls;
     }
 
     public function frame(): int

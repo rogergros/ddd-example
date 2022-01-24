@@ -94,7 +94,7 @@ class Game
         $intervalEnd = $this->finishedAt() ?? new DateTimeImmutable();
         $interval = $this->startedAt()->diff($intervalEnd);
 
-        return ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->m;
+        return ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
     }
 
     public function nextPlayer(): int
@@ -105,7 +105,7 @@ class Game
     /**
      * @return array<int,array<int,int|null>>
      */
-    public function scores(): array
+    public function scoreboards(): array
     {
         $scores = [];
         foreach ($this->sortedPlayerGames() as $playerGame) {
@@ -113,6 +113,31 @@ class Game
         }
 
         return $scores;
+    }
+
+    /**
+     * @return array<int,list<int>>
+     */
+    public function rolls()
+    {
+        $rolls = [];
+        foreach ($this->sortedPlayerGames() as $playerGame) {
+            $rolls[$playerGame->player()] = $playerGame->rolls();
+        }
+
+        return $rolls;
+    }
+
+    public function frame(): int
+    {
+        $minFrame = 10;
+        foreach ($this->playerGames as $playerGame) {
+            if ($playerGame->frame() < $minFrame) {
+                $minFrame = $playerGame->frame();
+            }
+        }
+
+        return $minFrame;
     }
 
     public function roll(int $knockedPins): void
