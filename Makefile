@@ -27,6 +27,16 @@ stop:
 php-sh:
 	$(PHP_EXEC) /bin/bash
 
+# DEVELOPMENT COMMANDS
+flush-database:
+	$(PHP_EXEC) sh -c 'rm -rf /tmp/bowling-app-*'
+
+check-code:
+	$(PHP_EXEC) composer check
+
+style-fix:
+	$(PHP_EXEC) composer style-fix
+
 # OTHER DOCKER COMMANDS
 docker-ease:
 	docker system prune --volumes --filter="label!=com.docker.compose.project" --force

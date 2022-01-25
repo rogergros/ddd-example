@@ -4,12 +4,20 @@
 
 {% block body %}
     <div class="col-lg-8 mx-auto p-3 py-md-5">
-        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <header class="d-flex align-items-center pb-3 mb-3 border-bottom">
             <a href="{{ url("web.home") }}" class="d-flex align-items-center text-dark text-decoration-none">
                 <img class="me-2" src="/img/bowling.png" height="30">
                 <span class="fs-4">Bowling management</span>
             </a>
         </header>
+
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('web.home') }}">Home</a></li>
+                <li class="breadcrumb-item active">{{ bowlingAlley.name }}</li>
+            </ol>
+        </nav>
 
         <main>
             <h1>{{ bowlingAlley.name }}</h1>

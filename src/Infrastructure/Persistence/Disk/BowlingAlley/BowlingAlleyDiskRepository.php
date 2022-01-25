@@ -10,8 +10,6 @@ use DDDExample\Domain\BowlingAlley\BowlingAlleyRepository;
 use DDDExample\Domain\BowlingAlley\Exception\BowlingAlleyNotFound;
 use DDDExample\Infrastructure\Persistence\Disk\DiskRepository;
 
-use function Lambdish\Phunctional\search;
-
 /**
  * @extends DiskRepository<BowlingAlley>
  */
@@ -19,7 +17,7 @@ class BowlingAlleyDiskRepository extends DiskRepository implements BowlingAlleyR
 {
     public function save(BowlingAlley $bowlingAlley): void
     {
-        $this->data[] = $bowlingAlley;
+        $this->data[$bowlingAlley->id()->value()] = $bowlingAlley;
         $this->saveDataOnFile();
     }
 
@@ -28,17 +26,12 @@ class BowlingAlleyDiskRepository extends DiskRepository implements BowlingAlleyR
      */
     public function all(): array
     {
-        return $this->data;
+        return array_values($this->data);
     }
 
     public function byId(BowlingAlleyId $bowlingAlleyId): BowlingAlley
     {
-        /** @var BowlingAlley|null $bowlingAlley */
-        $bowlingAlley = search(
-        /** @psalm-suppress ArgumentTypeCoercion */
-            static fn(BowlingAlley $bowlingAlley): bool => $bowlingAlleyId->eq($bowlingAlley->id()),
-            $this->all()
-        );
+        $bowlingAlley = $this->data[$bowlingAlleyId->value()] ?? null;
 
         if (!$bowlingAlley instanceof BowlingAlley) {
             throw BowlingAlleyNotFound::withId($bowlingAlleyId->value());

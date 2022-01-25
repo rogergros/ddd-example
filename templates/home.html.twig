@@ -44,68 +44,44 @@
                     <h2>Current games</h2>
 
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                            <img src="/img/pins.png" height="32">
-                            <div class="d-flex gap-2 w-100 justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">Bowling Alley 1 - Lane 2</h6>
-                                    <p class="mb-0 opacity-75">2 players / Frame 2</p>
-                                </div>
-                                <small class="opacity-50 text-nowrap">
-                                    <div class="spinner-border spinner-border-sm" role="status">
-                                        <span class="visually-hidden">Ongoing</span>
+                        {% for currentGame in currentGames %}
+                            <a href="{{ url('web.game', { 'id' : currentGame.id }) }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                                <img src="/img/pins.png" height="32">
+                                <div class="d-flex gap-2 w-100 justify-content-between">
+                                    <div>
+                                        <h6 class="mb-0">{{ currentGame.bowlingAlleyName }} - Lane {{ currentGame.lane }}</h6>
+                                        <p class="mb-0 opacity-75">{{ currentGame.players }} players / Frame {{ currentGame.frame }}</p>
                                     </div>
-                                    30 min
-                                </small>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                            <img src="/img/pins.png" height="32">
-                            <div class="d-flex gap-2 w-100 justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">Bowling Alley 2 - Lane 3</h6>
-                                    <p class="mb-0 opacity-75">4 players / Frame 9</p>
+                                    <small class="opacity-50 text-nowrap">
+                                        <div class="spinner-border spinner-border-sm" role="status">
+                                            <span class="visually-hidden">Ongoing</span>
+                                        </div>
+                                        {{ currentGame.elapsedMinutes }} min
+                                    </small>
                                 </div>
-                                <small class="opacity-50 text-nowrap">
-                                    <div class="spinner-border spinner-border-sm" role="status">
-                                        <span class="visually-hidden">Ongoing</span>
-                                    </div>
-                                    12 min
-                                </small>
-                            </div>
-                        </a>
+                            </a>
+                        {% endfor %}
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <h2>Last Finished Games</h2>
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                            <img src="/img/pins.png" height="32">
-                            <div class="d-flex gap-2 w-100 justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">Bowling Alley 1 - Lane 2</h6>
-                                    <p class="mb-0 opacity-75">2 players / Frame 2</p>
+                        {% for finishedGame in finishedGames %}
+                            <a href="{{ url('web.game', { 'id' : finishedGame.id }) }}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                                <img src="/img/pins.png" height="32">
+                                <div class="d-flex gap-2 w-100 justify-content-between">
+                                    <div>
+                                        <h6 class="mb-0">{{ finishedGame.bowlingAlleyName }} - Lane {{ finishedGame.lane }}</h6>
+                                        <p class="mb-0 opacity-75">{{ finishedGame.players }} players / Frame {{ finishedGame.frame }}</p>
+                                    </div>
+                                    <small class="opacity-50 text-nowrap">
+                                        <i class="bi bi-check-lg"></i>
+                                        {{ finishedGame.elapsedMinutes }} min
+                                    </small>
                                 </div>
-                                <small class="opacity-50 text-nowrap">
-                                    <i class="bi bi-check-lg"></i>
-                                    30 min
-                                </small>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                            <img src="/img/pins.png" height="32">
-                            <div class="d-flex gap-2 w-100 justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">Bowling Alley 2 - Lane 3</h6>
-                                    <p class="mb-0 opacity-75">4 players / Frame 9</p>
-                                </div>
-                                <small class="opacity-50 text-nowrap">
-                                    <i class="bi bi-check-lg"></i>
-                                    12 min
-                                </small>
-                            </div>
-                        </a>
+                            </a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

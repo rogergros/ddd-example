@@ -25,6 +25,7 @@ final class GameViewAssembler
         return new GameView(
             $game->gameId()->value(),
             $bowlingAlley->name()->value(),
+            $bowlingAlley->id()->value(),
             $game->lane(),
             $game->numberOfPlayers(),
             $game->frame(),

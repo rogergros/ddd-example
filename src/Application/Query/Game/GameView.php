@@ -12,6 +12,7 @@ final class GameView
     public function __construct(
         public string $id,
         public string $bowlingAlleyName,
+        public string $bowlingAlleyId,
         public int $lane,
         public int $players,
         public int $frame,

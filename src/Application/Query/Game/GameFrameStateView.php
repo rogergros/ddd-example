@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DDDExample\Application\Query\Game;
 
-class GameFrameStateView
+final class GameFrameStateView
 {
     public function __construct(
         public ?int $firstRoll,

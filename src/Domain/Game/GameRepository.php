@@ -16,4 +16,14 @@ interface GameRepository
      * @return list<Game>
      */
     public function byBowlingAlley(BowlingAlleyId $id): array;
+
+    /**
+     * @return list<Game>
+     */
+    public function notFinished(): array;
+
+    /**
+     * @return list<Game>
+     */
+    public function finished(): array;
 }

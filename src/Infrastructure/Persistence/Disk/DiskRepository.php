@@ -10,7 +10,7 @@ namespace DDDExample\Infrastructure\Persistence\Disk;
 abstract class DiskRepository
 {
     /**
-     * @var list<T>
+     * @var array<string,T>
      */
     protected array $data = [];
 
@@ -47,10 +47,10 @@ abstract class DiskRepository
             return;
         }
 
-        /** @var array<T>|false|null $fileData */
+        /** @var array<string,T>|false|null $fileData */
         $fileData = unserialize($fileContent);
 
-        $this->data = is_array($fileData) ? array_values($fileData) : [];
+        $this->data = is_array($fileData) ? $fileData : [];
     }
 
     private function filePath(): string
