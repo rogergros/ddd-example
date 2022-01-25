@@ -93,10 +93,10 @@ There are other folders that contain mainly symfony related stuff, infrastructur
 
 ## CI
 
-The project uses [Github Actions](https://github.com/features/actions) to run a CI process that ensures on every commit on the main branch that:
-* Tests are green
-* Code is checked statically and everything looks fine
-* Code styling is right
+The project uses [Github Actions](https://github.com/features/actions) to run a CI process that ensures that every commit on the main branch:
+* Passes all the tests ([PHPUnit](https://phpunit.de/))
+* Static code checking is green ([PHPStan](https://phpstan.org/) and [Psalm](https://psalm.dev/))
+* Code styling is right ([PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer))
 You can see the CI workflows results [here](https://github.com/rogergros/ddd-example/actions)
 
 ## 🛠 Possible improvements
