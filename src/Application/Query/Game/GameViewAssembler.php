@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DDDExample\Application\Query\Game;
 
-use DateTimeImmutable;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyRepository;
 use DDDExample\Domain\Game\Game;
 use DDDExample\Domain\Game\PlayerGameState;
