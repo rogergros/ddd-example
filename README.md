@@ -97,6 +97,7 @@ The project uses [Github Actions](https://github.com/features/actions) to run a 
 * Passes all the tests ([PHPUnit](https://phpunit.de/))
 * Static code checking is green ([PHPStan](https://phpstan.org/) and [Psalm](https://psalm.dev/))
 * Code styling is right ([PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer))
+
 You can see the CI workflows results [here](https://github.com/rogergros/ddd-example/actions)
 
 ## 🛠 Possible improvements
