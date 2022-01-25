@@ -6,7 +6,7 @@ namespace DDDExample\Shared\ValueObject\Exception;
 
 use DDDExample\Shared\Exception\UnexpectedValueException;
 
-class UnexpectedUlidValueException extends UnexpectedValueException
+final class UnexpectedUlidValueException extends UnexpectedValueException
 {
     public function __construct(string $invalidUlid)
     {

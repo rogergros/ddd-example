@@ -8,7 +8,7 @@ use DDDExample\Application\Command\CommandHandler;
 use DDDExample\Domain\Game\Game;
 use DDDExample\Domain\Game\GameRepository;
 
-class CreateGameHandler implements CommandHandler
+final class CreateGameHandler implements CommandHandler
 {
     public function __construct(
         private GameRepository $repository

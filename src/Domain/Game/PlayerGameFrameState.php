@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DDDExample\Domain\Game;
 
-class PlayerGameFrameState
+final class PlayerGameFrameState
 {
     public static function create(): self
     {

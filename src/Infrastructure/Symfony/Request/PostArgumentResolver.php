@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class PostArgumentResolver implements ArgumentValueResolverInterface
+final class PostArgumentResolver implements ArgumentValueResolverInterface
 {
     private const ARGUMENT_NAME = 'post';
 

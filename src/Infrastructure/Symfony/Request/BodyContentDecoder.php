@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 
-class BodyContentDecoder
+final class BodyContentDecoder
 {
     /**
      * @var list<string>

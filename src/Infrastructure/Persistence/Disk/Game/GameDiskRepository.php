@@ -16,7 +16,7 @@ use function Lambdish\Phunctional\filter;
 /**
  * @extends DiskRepository<Game>
  */
-class GameDiskRepository extends DiskRepository implements GameRepository
+final class GameDiskRepository extends DiskRepository implements GameRepository
 {
     public function save(Game $game): void
     {

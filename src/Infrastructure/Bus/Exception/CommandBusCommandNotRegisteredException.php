@@ -7,7 +7,7 @@ namespace DDDExample\Infrastructure\Bus\Exception;
 use DDDExample\Application\Command\Command;
 use DDDExample\Shared\Exception\AppException;
 
-class CommandBusCommandNotRegisteredException extends AppException
+final class CommandBusCommandNotRegisteredException extends AppException
 {
     public function __construct(Command $command)
     {

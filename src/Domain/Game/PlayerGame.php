@@ -6,7 +6,7 @@ namespace DDDExample\Domain\Game;
 
 use DDDExample\Domain\Game\Exception\UnexpectedNumberOfKnockedPins;
 
-class PlayerGame
+final class PlayerGame
 {
     public static function create(
         GameId $gameId,

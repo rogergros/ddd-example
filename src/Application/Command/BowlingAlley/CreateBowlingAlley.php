@@ -8,7 +8,7 @@ use DDDExample\Application\Command\Command;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyId;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyName;
 
-class CreateBowlingAlley implements Command
+final class CreateBowlingAlley implements Command
 {
     public function __construct(
         public BowlingAlleyId $id,

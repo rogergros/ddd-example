@@ -11,7 +11,7 @@ use Throwable;
 
 use function Lambdish\Phunctional\reduce;
 
-class PrimitiveExtractor
+final class PrimitiveExtractor
 {
     /**
      * @param ArrayAccess|array<mixed> $primitives

@@ -13,7 +13,7 @@ use DDDExample\Infrastructure\Persistence\Disk\DiskRepository;
 /**
  * @extends DiskRepository<BowlingAlley>
  */
-class BowlingAlleyDiskRepository extends DiskRepository implements BowlingAlleyRepository
+final class BowlingAlleyDiskRepository extends DiskRepository implements BowlingAlleyRepository
 {
     public function save(BowlingAlley $bowlingAlley): void
     {

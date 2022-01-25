@@ -8,7 +8,7 @@ use DDDExample\Application\Command\CommandHandler;
 use DDDExample\Domain\BowlingAlley\BowlingAlley;
 use DDDExample\Domain\BowlingAlley\BowlingAlleyRepository;
 
-class CreateBowlingAlleyHandler implements CommandHandler
+final class CreateBowlingAlleyHandler implements CommandHandler
 {
     public function __construct(private BowlingAlleyRepository $repository)
     {

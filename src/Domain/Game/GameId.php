@@ -6,7 +6,7 @@ namespace DDDExample\Domain\Game;
 
 use DDDExample\Shared\ValueObject\Ulid;
 
-class GameId extends Ulid
+final class GameId extends Ulid
 {
     public static function create(string $value): self
     {

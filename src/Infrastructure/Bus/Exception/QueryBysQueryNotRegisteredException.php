@@ -7,7 +7,7 @@ namespace DDDExample\Infrastructure\Bus\Exception;
 use DDDExample\Application\Query\Query;
 use DDDExample\Shared\Exception\AppException;
 
-class QueryBysQueryNotRegisteredException extends AppException
+final class QueryBysQueryNotRegisteredException extends AppException
 {
     public function __construct(Query $query)
     {

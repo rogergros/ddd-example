@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class CommandBus implements CommandBusInterface
+final class CommandBus implements CommandBusInterface
 {
     private MessageBusInterface $symfonyBus;
 

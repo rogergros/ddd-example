@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class BodyArgumentResolver implements ArgumentValueResolverInterface
+final class BodyArgumentResolver implements ArgumentValueResolverInterface
 {
     private const ARGUMENT_NAME = 'body';
 
