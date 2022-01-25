@@ -1,6 +1,7 @@
 # 🎳 Bowling manager 
-## DDD and Hexagonal Architecture Demo Project
 ![Static analysis and tests](https://github.com/rogergros/ddd-example/actions/workflows/ci.yml/badge.svg)
+
+## DDD and Hexagonal Architecture Demo Project
 
 > ℹ️ This is a Demo project. Its goal is to show how a DDD architecture could work with PHP. Because of that,
 > functionality is limited and far to be complete.
@@ -89,6 +90,14 @@ use cases on multiple scenarios (Web app, API, Command line, WebHook...)
 ### 📁 Other folders
 
 There are other folders that contain mainly symfony related stuff, infrastructure code to run the app, libraries, caches, etc.
+
+## CI
+
+The project uses [Github Actions](https://github.com/features/actions) to run a CI process that ensures on every commit on the main branch that:
+* Tests are green
+* Code is checked statically and everything looks fine
+* Code styling is right
+You can see the CI workflows results [here](https://github.com/rogergros/ddd-example/actions)
 
 ## 🛠 Possible improvements
 
