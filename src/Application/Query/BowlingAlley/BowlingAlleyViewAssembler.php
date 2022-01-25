@@ -24,7 +24,7 @@ final class BowlingAlleyViewAssembler
 
         /** @var int $activeGames */
         $activeGames = reduce(
-            fn(int $counter, Game $game): int => $game->finishedAt() === null ? $counter + 1 : $counter,
+            fn(int $counter, Game $game): int => !$game->isFinished() ? $counter + 1 : $counter,
             $games,
             0
         );

@@ -6,7 +6,7 @@ namespace DDDExample\Domain\Game\Exception;
 
 use DDDExample\Shared\Exception\UnexpectedValueException;
 
-class UnexpectedNumberOfLanes extends UnexpectedValueException
+final class UnexpectedNumberOfLanes extends UnexpectedValueException
 {
     public function __construct(int $received, int $maxLanes)
     {

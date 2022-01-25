@@ -6,6 +6,6 @@ namespace DDDExample\Domain\Game\Exception;
 
 use DDDExample\Shared\Exception\AppException;
 
-class GameAlreadyFinishedException extends AppException
+final class GameAlreadyFinishedException extends AppException
 {
 }

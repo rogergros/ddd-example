@@ -6,7 +6,7 @@ namespace DDDExample\Domain\BowlingAlley;
 
 use DateTimeImmutable;
 
-class BowlingAlley
+final class BowlingAlley
 {
     public static function create(
         BowlingAlleyId $id,

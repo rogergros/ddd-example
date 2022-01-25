@@ -29,7 +29,7 @@ final class GameViewAssembler
             $game->numberOfPlayers(),
             $game->frame(),
             $game->nextPlayer(),
-            $game->finishedAt() instanceof DateTimeImmutable,
+            $game->isFinished(),
             $game->minutesElapsed(),
             $game->startedAt()->getTimestamp(),
             $this->assemblePlayerGameStates($game),

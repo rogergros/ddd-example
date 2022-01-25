@@ -66,6 +66,22 @@ class PlayerGameState
         return $this->frameState($frame)->score();
     }
 
+    public function updateState(
+        int $frame,
+        ?int $frameFirstRoll,
+        ?int $frameSecondRoll,
+        ?int $frameThirdRoll,
+        ?int $frameScore,
+        int $totalScore,
+    ): void {
+        $frameState = $this->frameState($frame);
+        $frameState->setFirstRoll($frameFirstRoll);
+        $frameState->setSecondRoll($frameSecondRoll);
+        $frameState->setThirdRoll($frameThirdRoll);
+        $frameState->setScore($frameScore);
+        $this->totalScore = $totalScore;
+    }
+
     /**
      * @param int $totalScore
      */
@@ -97,6 +113,11 @@ class PlayerGameState
     public function finish(): void
     {
         $this->isFinished = true;
+    }
+
+    public function nextFrame(): void
+    {
+        $this->currentFrame = min(10, $this->currentFrame + 1);
     }
 
     public function updateFrame(int $currentFrame): void

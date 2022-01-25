@@ -14,7 +14,7 @@ use function Lambdish\Phunctional\filter;
 use function Lambdish\Phunctional\map;
 use function Lambdish\Phunctional\sort as fsort;
 
-class Game
+final class Game
 {
     private const MAX_LANES = 10;
     private const MAX_PLAYERS = 10;
@@ -25,18 +25,13 @@ class Game
         int $lane,
         int $numberOfPlayers
     ): Game {
-        if ($numberOfPlayers < 1 || $numberOfPlayers > self::MAX_PLAYERS) {
-            throw new UnexpectedNumberOfPlayers($numberOfPlayers, self::MAX_PLAYERS);
-        }
-
-        /** @var list<PlayerGame> $games */
-        $games = map(fn(int $player) => PlayerGame::create($gameId, $player), range(1, $numberOfPlayers));
+        self::guardNumberOfPlayers($numberOfPlayers);
 
         return new self(
             $gameId,
             $bowlingAlleyId,
             $lane,
-            $games,
+            self::createPlayerGames($gameId, $numberOfPlayers),
             new DateTimeImmutable()
         );
     }
@@ -52,9 +47,7 @@ class Game
         private DateTimeImmutable $startedAt,
         private ?DateTimeImmutable $finishedAt = null
     ) {
-        if ($lane < 1 || $lane > self::MAX_LANES) {
-            throw new UnexpectedNumberOfLanes($lane, self::MAX_LANES);
-        }
+        $this->guardNumberOfLanes($lane);
     }
 
     /**
@@ -90,10 +83,15 @@ class Game
         return $this->finishedAt;
     }
 
+    public function isFinished(): bool
+    {
+        return $this->finishedAt instanceof DateTimeImmutable;
+    }
+
     public function minutesElapsed(): int
     {
-        $intervalEnd = $this->finishedAt() ?? new DateTimeImmutable();
-        $interval = $this->startedAt()->diff($intervalEnd);
+        $intervalEnd = $this->finishedAt ?? new DateTimeImmutable();
+        $interval = $this->startedAt->diff($intervalEnd);
 
         return ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
     }
@@ -184,5 +182,33 @@ class Game
         $sortedGames = $this->sortedPlayerGames();
 
         return $sortedGames[$player - 1];
+    }
+
+    private function guardNumberOfLanes(int $lane): void
+    {
+        if ($lane < 1 || $lane > self::MAX_LANES) {
+            throw new UnexpectedNumberOfLanes($lane, self::MAX_LANES);
+        }
+    }
+
+    private static function guardNumberOfPlayers(int $numberOfPlayers): void
+    {
+        if ($numberOfPlayers < 1 || $numberOfPlayers > self::MAX_PLAYERS) {
+            throw new UnexpectedNumberOfPlayers($numberOfPlayers, self::MAX_PLAYERS);
+        }
+    }
+
+    /**
+     * @return list<PlayerGame>
+     */
+    private static function createPlayerGames(GameId $gameId, int $numberOfPlayers): array
+    {
+        /** @var list<PlayerGame> $playerGames */
+        $playerGames = map(
+            fn(int $player): PlayerGame => PlayerGame::create($gameId, $player),
+            range(1, $numberOfPlayers)
+        );
+
+        return $playerGames;
     }
 }

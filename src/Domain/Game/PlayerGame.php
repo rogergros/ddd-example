@@ -82,29 +82,17 @@ class PlayerGame
             if ($this->frameIsStrike($roll)) {
                 $frameScore = $this->getKnockedPins($roll, 3);
                 $totalScore += $frameScore ?? 0;
-
-                $this->state->updateFrameFirstRoll($frame, null);
-                $this->state->updateFrameSecondRoll($frame, 10);
-                $this->state->updateFrameScore($frame, $frameScore ? $totalScore : null);
-                $this->state->updateTotalScore($totalScore);
-
-                if (null !== $frameScore) {
-                    $this->state->updateFrame(min(10, $frame + 1));
-                }
+                $firsRoll = 10 === $frame ? 10 : null;
+                $secondRoll = 10 === $frame ? ($this->rolls[$roll + 1] ?? null) : 10;
+                $thirdRoll = 10 === $frame ? ($this->rolls[$roll + 2] ?? null) : null;
 
                 $roll += 1;
             } elseif ($this->frameIsSpare($roll)) {
                 $frameScore = $this->getKnockedPins($roll, 3);
                 $totalScore += $frameScore ?? 0;
-
-                $this->state->updateFrameFirstRoll($frame, $this->rolls[$roll] ?? null);
-                $this->state->updateFrameSecondRoll($frame, $this->rolls[$roll + 1] ?? null);
-                $this->state->updateFrameScore($frame, $frameScore ? $totalScore : null);
-                $this->state->updateTotalScore($totalScore);
-
-                if (null !== $frameScore) {
-                    $this->state->updateFrame(min(10, $frame + 1));
-                }
+                $firsRoll = $this->rolls[$roll] ?? null;
+                $secondRoll = $this->rolls[$roll + 1] ?? null;
+                $thirdRoll = 10 === $frame ? ($this->rolls[$roll + 2] ?? null) : null;
 
                 $roll += 2;
             } else {
@@ -114,21 +102,24 @@ class PlayerGame
                 }
 
                 $totalScore += $frameScore ?? 0;
-
-                $this->state->updateFrameFirstRoll($frame, $this->rolls[$roll] ?? null);
-                $this->state->updateFrameSecondRoll($frame, $this->rolls[$roll + 1] ?? null);
-                $this->state->updateFrameScore($frame, $frameScore ? $totalScore : null);
-                $this->state->updateTotalScore($totalScore);
-
-                if (10 === $frame) {
-                    $this->state->updateTenthFrameThirdRoll($this->rolls[$roll + 2] ?? null);
-                }
-
-                if (null !== $frameScore) {
-                    $this->state->updateFrame(min(10, $frame + 1));
-                }
+                $firsRoll = $this->rolls[$roll] ?? null;
+                $secondRoll = $this->rolls[$roll + 1] ?? null;
+                $thirdRoll = 10 === $frame ? ($this->rolls[$roll + 2] ?? null) : null;
 
                 $roll += 2;
+            }
+
+            $this->state->updateState(
+                $frame,
+                $firsRoll,
+                $secondRoll,
+                $thirdRoll,
+                $frameScore ? $totalScore : null,
+                $totalScore
+            );
+
+            if (null !== $secondRoll) {
+                $this->state->nextFrame();
             }
         }
 

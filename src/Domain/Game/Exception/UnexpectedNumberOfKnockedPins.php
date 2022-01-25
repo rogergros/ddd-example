@@ -6,7 +6,7 @@ namespace DDDExample\Domain\Game\Exception;
 
 use DDDExample\Shared\Exception\UnexpectedValueException;
 
-class UnexpectedNumberOfKnockedPins extends UnexpectedValueException
+final class UnexpectedNumberOfKnockedPins extends UnexpectedValueException
 {
     public function __construct(int $received)
     {
