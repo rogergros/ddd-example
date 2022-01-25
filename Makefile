@@ -1,6 +1,6 @@
 # HELPERS
 COMPOSE = \
-	docker-compose -f docker-compose.dev.yml
+	docker-compose -f docker-compose.yml
 
 PHP_EXEC = \
 	$(COMPOSE) exec php
