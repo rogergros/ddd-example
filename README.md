@@ -91,7 +91,7 @@ use cases on multiple scenarios (Web app, API, Command line, WebHook...)
 
 There are other folders that contain mainly symfony related stuff, infrastructure code to run the app, libraries, caches, etc.
 
-## CI
+## ⚙️ CI
 
 The project uses [Github Actions](https://github.com/features/actions) to run a CI process that ensures that every commit on the main branch:
 * Passes all the tests ([PHPUnit](https://phpunit.de/))
